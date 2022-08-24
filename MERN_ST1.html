@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+        <style>
+            body{
+                background-color: teal;
+                font-family: 'Noto Sans', sans-serif;
+                overflow:scroll;
+                overflow-x: hidden;
+            }
+            button{
+                cursor:pointer;
+                height: 30px;
+                width: 100px;
+                font-size: 15px;
+                font-weight: bolder;
+                background-color: royalblue;
+                color:#57ffd8;
+                border:none;
+                border-radius: 5px;
+            }
+            #res{
+                display:flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+                width:100vw;
+                height:100vh;
+            }
+            body::-webkit-scrollbar{
+                display: none;
+            }
+            p{
+                background-color: royalblue;
+                color:#57ffd8;
+                width:20%;
+                font-size: 20px;
+                font-weight: bold;
+                border:2px solid royalblue;
+                border-radius: 15px;
+                padding:5px;
+            }
+            header{
+                height: 15%;
+                width: 100vw;
+                font-size: 50px;
+                font-weight: bolder;
+                background-color: royalblue;
+                color:#57ffd8;
+            }
+        </style>
+    </head>
+    <body>
+        <header><center><h1>TO DO LIST</h1></center></header>
+       <center id="btn"> <button onclick="list()">Get List</button> </center>
+        <div id = "res">
+        </div>
+        <script>
+            var data = document.getElementById("res");
+            const list = () => {
+                let url = "https://jsonplaceholder.typicode.com/todos";
+                fetch(url).then((res) => {
+                    return res.json();
+                }).then((res) => {
+                    document.getElementById("btn").innerHTML = ""; 
+                    let arr = res.filter((obj) => {return obj.completed == true});
+                    arr.forEach(element => {
+                        data.innerHTML = data.innerHTML + "<p>" + "id : " + element.id + "<br>" + "title : " + element.title + "</p>";
+                    });
+                });
+            };
+        </script>
+    </body>
+</html>
